@@ -40,6 +40,6 @@
 # Comandos para migração
 ```bash
   dotnet tools install --global dotnet-ef
-  dotnet ef migrations add MateriaisAdd
+  dotnet ef migrations add AdministradoresAdd
   dotnet ef database update
 ```

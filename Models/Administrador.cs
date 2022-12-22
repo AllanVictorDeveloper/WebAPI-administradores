@@ -6,8 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace webapi.Models
 {
 
-    [Table("tb_materiais")]
-    public partial class Material
+    [Table("adminitradores")]
+    public partial class Administrador
     {
         // Propriedades
         [Key]
@@ -19,10 +19,17 @@ namespace webapi.Models
         [MaxLength(150)]
         public string Nome { get; set; }
 
-        [Column("aluno_id")]
+        [Column("email", TypeName = "varchar")]
         [Required]
-        [MaxLength(8)]
-        public int AlunoId { get; set; }
+        [MaxLength(150)]
+        public string Email { get; set; }
+
+        [Column("senha", TypeName = "varchar")]
+        [Required]
+        [MaxLength(10)]
+        public string Senha { get; set; }
+
+        
 
         
     }

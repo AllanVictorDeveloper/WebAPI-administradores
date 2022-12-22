@@ -8,7 +8,7 @@ namespace webapi.Servico
          
         public DbContexto(DbContextOptions<DbContexto> options) : base(options) {}
         
-        public DbSet<Material> Materiais {get; set;}
+        public DbSet<Administrador> Administradores {get; set;}
         
     }
 }

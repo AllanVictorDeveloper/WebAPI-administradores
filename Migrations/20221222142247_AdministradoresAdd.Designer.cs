@@ -9,8 +9,8 @@ using webapi.Servico;
 namespace webapi.Migrations
 {
     [DbContext(typeof(DbContexto))]
-    [Migration("20221222133245_MateriaisAdd")]
-    partial class MateriaisAdd
+    [Migration("20221222142247_AdministradoresAdd")]
+    partial class AdministradoresAdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace webapi.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("webapi.Models.Material", b =>
+            modelBuilder.Entity("webapi.Models.Administrador", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -28,10 +28,11 @@ namespace webapi.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AlunoId")
-                        .HasMaxLength(8)
-                        .HasColumnType("int")
-                        .HasColumnName("aluno_id");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("email");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -39,9 +40,15 @@ namespace webapi.Migrations
                         .HasColumnType("varchar(150)")
                         .HasColumnName("nome");
 
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("senha");
+
                     b.HasKey("Id");
 
-                    b.ToTable("tb_materiais");
+                    b.ToTable("adminitradores");
                 });
 #pragma warning restore 612, 618
         }

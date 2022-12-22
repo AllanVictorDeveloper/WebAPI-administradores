@@ -12,27 +12,27 @@ using EntityFrameworkPaginateCore;
 namespace webapi.Controllers
 {
     [ApiController]
-    public class MateriaisController : ControllerBase
+    public class AdministradoresController : ControllerBase
     {
         private readonly DbContexto _context;
 
-        public MateriaisController(DbContexto context)
+        public AdministradoresController(DbContexto context)
         {
             _context = context;
         }
 
-        // GET: /materiais
+        // GET: /administradores
         [HttpGet]
-        [Route("/materiais")]
+        [Route("/administradores")]
         public async Task<IActionResult> Index()
         {
-            var materiais = await _context.Materiais.ToListAsync();
-            return StatusCode(200, materiais );
+            var administradores = await _context.Administradores.ToListAsync();
+            return StatusCode(200, administradores );
         }
 
-        // GET: /materiais/{id}
+        // GET: /administradores/{id}
         [HttpGet]
-        [Route("/materiais/{id}")]
+        [Route("/administradores/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,48 +40,48 @@ namespace webapi.Controllers
                 return NotFound();
             }
 
-            var material = await _context.Materiais
+            var administrador = await _context.Administradores
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (material == null)
+            if (administrador == null)
             {
                 return NotFound();
             }
 
-            return StatusCode(200, material);
+            return StatusCode(200, administrador);
         }
 
         
-        // POST: /materiais
+        // POST: /administradores
         [HttpPost]
-        [Route("/materiais")]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Matricula,Notas")] Material material)
+        [Route("/administradores")]
+        public async Task<IActionResult> Create([Bind("Id,Nome,Matricula,Notas")] Administrador administrador)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(material);
+                _context.Add(administrador);
                 await _context.SaveChangesAsync();
-                return StatusCode(201, material);
+                return StatusCode(201, administrador);
             }
-            return StatusCode(201, material);
+            return StatusCode(201, administrador);
         }
 
         
-        // PUT: /materiais/{id}
+        // PUT: /administradores/{id}
         [HttpPut]
-        [Route("/materiais/{id}")]
-        public async Task<IActionResult> Edit(int id, Material material)
+        [Route("/administradores/{id}")]
+        public async Task<IActionResult> Edit(int id, Administrador administrador)
         {
 
             if (ModelState.IsValid)
             {
                 try
-                {   material.Id = id;
-                    _context.Update(material);
+                {   administrador.Id = id;
+                    _context.Update(administrador);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MaterialExists(material.Id))
+                    if (!AdministradorExists(administrador.Id))
                     {
                         return NotFound();
                     }
@@ -90,26 +90,26 @@ namespace webapi.Controllers
                         throw;
                     }
                 }
-                return StatusCode(200, material);
+                return StatusCode(200, administrador);
             }
-            return StatusCode(200, material);
+            return StatusCode(200, administrador);
         }
 
 
-        // DELETE: /materiais/{id}
+        // DELETE: /administradores/{id}
         [HttpDelete]
-        [Route("/materiais/{id}")]
+        [Route("/administradores/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var material = await _context.Materiais.FindAsync(id);
-            _context.Materiais.Remove(material);
+            var administrador = await _context.Administradores.FindAsync(id);
+            _context.Administradores.Remove(administrador);
             await _context.SaveChangesAsync();
             return StatusCode(204);
         }
 
-            private bool MaterialExists(int id)
+            private bool AdministradorExists(int id)
         {
-            return _context.Materiais.Any(e => e.Id == id);
+            return _context.Administradores.Any(e => e.Id == id);
         }
     }
 }
