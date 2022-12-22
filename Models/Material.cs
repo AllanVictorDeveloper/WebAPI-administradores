@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace webapi.Models
 {
 
-    [Table("tb_alunos")]
+    [Table("tb_materiais")]
     public partial class Material
     {
         // Propriedades

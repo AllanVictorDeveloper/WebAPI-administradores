@@ -10,7 +10,7 @@ namespace webapi.ModelViews
         public List<dynamic> Endpoints => new List<dynamic>(){
             new {Item = new {Documentacao = "/swagger"} },
 
-            new {Item = new {Path = "/alunos" } }
+            new {Item = new {Path = "/materiais" } }
 
         };
     }
