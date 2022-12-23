@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using webapi.Models;
 using webapi.Servico;
 using EntityFrameworkPaginateCore;
+using webapi.ModelViews;
 
 namespace webapi.Controllers
 {
@@ -26,8 +27,42 @@ namespace webapi.Controllers
         [Route("/administradores")]
         public async Task<IActionResult> Index()
         {
-            var administradores = await _context.Administradores.ToListAsync();
+            var administradores = await _context.Administradores.Select(a => new{
+                            Id = a.Id,
+                            Nome = a.Nome,
+                            Email = a.Email        
+                            // etc, don't include the image column
+                        }).ToListAsync();
+
             return StatusCode(200, administradores );
+        }
+
+        // POST: /administradores/{id}
+        [HttpPost]
+        [Route("/administradores/login")]
+        public async Task<IActionResult> Login([FromBody] AdmLoginView adm)
+        {
+            if (string.IsNullOrWhiteSpace(adm.Email) || string.IsNullOrWhiteSpace(adm.Senha))
+            {
+                return StatusCode(400, new {
+                    Mensagem = "É Obrigatório preencher Email e Senha válidos."
+                });
+            }
+
+            var administrador = (await _context.Administradores.Where(a => a.Email == adm.Email && a.Senha == adm.Senha).FirstAsync());
+            if (administrador != null)
+            {
+                return StatusCode(200, new{
+                    Id = administrador.Id,
+                    Nome = administrador.Nome,
+                    Email = administrador.Email
+                });
+            }
+
+            return StatusCode(401, new {
+                    Mensagem = "Usuário ou Senha inválidos." 
+                });
+            
         }
 
         // GET: /administradores/{id}
@@ -47,7 +82,11 @@ namespace webapi.Controllers
                 return NotFound();
             }
 
-            return StatusCode(200, administrador);
+            return StatusCode(200, new{
+                Id = administrador.Id,
+                Nome = administrador.Nome,
+                Email = administrador.Email
+            });
         }
 
         
